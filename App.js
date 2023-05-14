@@ -1,9 +1,10 @@
 import {StatusBar} from 'expo-status-bar';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import {Provider} from 'react-native-paper';
+import {theme} from './themes/themeoptions';
 import Loading from './views/Loading';
 import MainView from './views/MainView';
-import React, {useState, useEffect} from 'react';
-
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -14,10 +15,14 @@ const App = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
-      {isLoading ? <Loading /> : <MainView />}
-      <StatusBar style="auto" />
-    </View>
+    <Provider theme={theme}>
+
+      <View style={styles.container}>
+        {isLoading ? <Loading /> : <MainView />}
+        <StatusBar style="auto" />
+      </View>
+    </Provider>
+
   );
 };
 
