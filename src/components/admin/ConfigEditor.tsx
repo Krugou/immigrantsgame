@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useGame } from '../../context/GameContext';
+import { isBackendAvailable } from '../../services/api';
+import { gaEvent } from '../../lib/analytics';
 
 const ConfigEditor: React.FC = () => {
   const { sysConfig } = useGame();
@@ -7,18 +9,26 @@ const ConfigEditor: React.FC = () => {
   const [notification, setNotification] = useState<string | null>(null);
 
   const handleUpdate = async () => {
-    try {
-      const res = await fetch('/api/admin/config', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(localConfig),
-      });
-      if (res.ok) {
-        setNotification('Configuration updated. Please refresh the page to apply changes.');
-        setTimeout(() => setNotification(null), 5000);
+    if (isBackendAvailable()) {
+      try {
+        const res = await fetch('/api/admin/config', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(localConfig),
+        });
+        if (res.ok) {
+          gaEvent('admin_config_update', {});
+          setNotification('Configuration updated. Please refresh the page to apply changes.');
+          setTimeout(() => setNotification(null), 5000);
+        }
+      } catch {
+        setNotification('Failed to update configuration.');
+        setTimeout(() => setNotification(null), 3000);
       }
-    } catch {
-      setNotification('Failed to update configuration.');
+    } else {
+      // TODO: Save config directly to Firebase (implement as needed)
+      gaEvent('admin_config_update', { firebase: true });
+      setNotification('Configuration updated in Firebase (mock).');
       setTimeout(() => setNotification(null), 3000);
     }
   };
@@ -43,8 +53,14 @@ const ConfigEditor: React.FC = () => {
   };
 
   return (
-    <div className="cinematic-card p-6 bg-slate-900/50 border border-slate-800 rounded-xl">
-      <h2 className="text-xl font-bold text-blue-400 mb-6 flex items-center gap-2">
+    <div
+      className="cinematic-card p-6 bg-slate-900/50 border border-slate-800 rounded-xl"
+      id="config-editor"
+    >
+      <h2
+        className="text-xl font-bold text-blue-400 mb-6 flex items-center gap-2"
+        id="config-editor-title"
+      >
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             strokeLinecap="round"
@@ -63,19 +79,29 @@ const ConfigEditor: React.FC = () => {
       </h2>
 
       {notification && (
-        <div className="mb-4 p-3 bg-blue-600/20 border border-blue-500/50 text-blue-200 text-sm rounded animate-in fade-in">
+        <div
+          className="mb-4 p-3 bg-blue-600/20 border border-blue-500/50 text-blue-200 text-sm rounded animate-in fade-in"
+          id="config-editor-notification"
+        >
           {notification}
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6" id="config-editor-list-grid">
         {(['territoryTypes', 'eventTypes', 'categories'] as const).map((key) => (
-          <div key={key} className="flex flex-col gap-3">
-            <div className="flex justify-between items-center bg-slate-800/50 p-2 rounded border border-slate-700">
-              <span className="text-xs uppercase tracking-widest text-slate-400 font-bold">
+          <div key={key} className="flex flex-col gap-3" id={`config-editor-section-${key}`}>
+            <div
+              className="flex justify-between items-center bg-slate-800/50 p-2 rounded border border-slate-700"
+              id={`config-editor-header-${key}`}
+            >
+              <span
+                className="text-xs uppercase tracking-widest text-slate-400 font-bold"
+                id={`config-editor-label-${key}`}
+              >
                 {key}
               </span>
               <button
+                id={`config-editor-add-btn-${key}`}
                 onClick={() => addItem(key)}
                 className="w-5 h-5 flex items-center justify-center bg-blue-600 rounded text-white hover:bg-blue-500 transition-colors"
                 title="Add Item"
@@ -83,14 +109,16 @@ const ConfigEditor: React.FC = () => {
                 +
               </button>
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2" id={`config-editor-items-${key}`}>
               {(localConfig[key] as string[]).map((item, idx) => (
                 <div
                   key={idx}
                   className="group relative flex items-center bg-slate-800 border border-slate-700 px-2 py-1 rounded text-xs"
+                  id={`config-editor-item-${key}-${idx}`}
                 >
-                  <span>{item}</span>
+                  <span id={`config-editor-item-label-${key}-${idx}`}>{item}</span>
                   <button
+                    id={`config-editor-remove-btn-${key}-${idx}`}
                     onClick={() => removeItem(key, idx)}
                     className="ml-2 text-slate-500 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity"
                   >
@@ -103,8 +131,9 @@ const ConfigEditor: React.FC = () => {
         ))}
       </div>
 
-      <div className="mt-8 pt-6 border-t border-slate-800">
+      <div className="mt-8 pt-6 border-t border-slate-800" id="config-editor-footer">
         <button
+          id="config-editor-save-btn"
           onClick={handleUpdate}
           className="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded shadow-lg shadow-blue-900/20 transition-all flex items-center justify-center gap-2"
         >
@@ -118,7 +147,10 @@ const ConfigEditor: React.FC = () => {
           </svg>
           SAVE SYSTEM CONFIGURATION
         </button>
-        <p className="text-[10px] text-slate-500 mt-2 text-center uppercase tracking-widest">
+        <p
+          className="text-[10px] text-slate-500 mt-2 text-center uppercase tracking-widest"
+          id="config-editor-warning"
+        >
           Warning: Changes affect all new events and territory generation.
         </p>
       </div>

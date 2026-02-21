@@ -10,6 +10,8 @@ import EventForm from '../../components/admin/EventForm';
 import ConfigEditor from '../../components/admin/ConfigEditor';
 
 import { useGame } from '../../context/GameContext';
+import { isBackendAvailable } from '../../services/api';
+import { gaEvent } from '../../lib/analytics';
 
 const AdminPage = () => {
   const { t } = useTranslation();
@@ -21,17 +23,22 @@ const AdminPage = () => {
   const [isServerOffline, setIsServerOffline] = useState(false);
 
   const fetchEvents = useCallback(async () => {
-    try {
-      const res = await fetch('/api/admin/events');
-      if (!res.ok) {
+    if (isBackendAvailable()) {
+      try {
+        const res = await fetch('/api/admin/events');
+        if (!res.ok) {
+          setIsServerOffline(true);
+          return;
+        }
+        const data = await res.json();
+        setEvents(data);
+        setIsServerOffline(false);
+      } catch {
         setIsServerOffline(true);
-        return;
       }
-      const data = await res.json();
-      setEvents(data);
+    } else {
+      // TODO: Fetch events directly from Firebase (implement as needed)
       setIsServerOffline(false);
-    } catch {
-      setIsServerOffline(true);
     }
   }, []);
 
@@ -77,46 +84,66 @@ const AdminPage = () => {
   };
 
   const save = async () => {
-    const url = '/api/admin/events';
-    const method = editing ? 'PUT' : 'POST';
-    const body = {
-      event: form,
-      territoryType: form.territoryType || '',
-    };
-    try {
-      const res = await fetch(url, {
-        method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      });
-      if (res.ok) {
-        setNotification(editing ? 'Event updated successfully' : 'Event created successfully');
-        setTimeout(() => setNotification(null), 3000);
-        await fetchEvents();
-        resetForm();
+    if (isBackendAvailable()) {
+      const url = '/api/admin/events';
+      const method = editing ? 'PUT' : 'POST';
+      const body = {
+        event: form,
+        territoryType: form.territoryType || '',
+      };
+      try {
+        const res = await fetch(url, {
+          method,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        });
+        if (res.ok) {
+          gaEvent(editing ? 'admin_event_update' : 'admin_event_create', { eventId: form.id });
+          setNotification(editing ? 'Event updated successfully' : 'Event created successfully');
+          setTimeout(() => setNotification(null), 3000);
+          await fetchEvents();
+          resetForm();
+        }
+      } catch {
+        setIsServerOffline(true);
       }
-    } catch {
-      setIsServerOffline(true);
+    } else {
+      // TODO: Save event directly to Firebase (implement as needed)
+      gaEvent(editing ? 'admin_event_update' : 'admin_event_create', {
+        eventId: form.id,
+        firebase: true,
+      });
+      setNotification('Event saved to Firebase (mock)');
+      setTimeout(() => setNotification(null), 3000);
+      resetForm();
     }
   };
 
   const remove = async (event: EventTemplate) => {
-    try {
-      const res = await fetch('/api/admin/events', {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          eventId: event.id,
-          territoryType: event.territoryType,
-        }),
-      });
-      if (res.ok) {
-        setNotification('Event removed');
-        setTimeout(() => setNotification(null), 3000);
-        await fetchEvents();
+    if (isBackendAvailable()) {
+      try {
+        const res = await fetch('/api/admin/events', {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            eventId: event.id,
+            territoryType: event.territoryType,
+          }),
+        });
+        if (res.ok) {
+          gaEvent('admin_event_delete', { eventId: event.id });
+          setNotification('Event removed');
+          setTimeout(() => setNotification(null), 3000);
+          await fetchEvents();
+        }
+      } catch {
+        setIsServerOffline(true);
       }
-    } catch {
-      setIsServerOffline(true);
+    } else {
+      // TODO: Remove event directly from Firebase (implement as needed)
+      gaEvent('admin_event_delete', { eventId: event.id, firebase: true });
+      setNotification('Event removed from Firebase (mock)');
+      setTimeout(() => setNotification(null), 3000);
     }
   };
 

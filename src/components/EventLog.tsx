@@ -55,7 +55,10 @@ const EventLog = React.memo(({ events }: Props) => {
   const { t, i18n } = useTranslation();
   if (events.length === 0) {
     return (
-      <div className="cinematic-card h-full min-h-[400px] flex items-center justify-center border-dashed border-cinematic-border">
+      <div
+        id="event-log-empty"
+        className="cinematic-card h-full min-h-[400px] flex items-center justify-center border-dashed border-cinematic-border"
+      >
         <Text as="p" variant="muted" className="text-sm italic">
           {t('ui.awaiting')}
         </Text>
@@ -67,17 +70,19 @@ const EventLog = React.memo(({ events }: Props) => {
   const renderItem = (e: GameEvent) => {
     const style = getEventStyles(e.type);
     const timeStr = new Date(e.timestamp).toLocaleTimeString();
-    const lang = i18n.language.split('-')[0] as 'en' | 'fi';
+    const lang = (i18n.language?.split('-')[0] as 'en' | 'fi') || 'en';
 
     const title = typeof e.title === 'object' ? e.title[lang] || e.title.en : e.title;
-    const description = typeof e.description === 'object' ? e.description[lang] || e.description.en : e.description;
+    const description =
+      typeof e.description === 'object' ? e.description[lang] || e.description.en : e.description;
 
     return (
       <div
         key={e.id}
+        id={`event-row-${e.id}`}
         className={`animate-slide-up p-3 rounded-md border-l-4 ${style.bgColor} ${style.borderColor} transition-all hover:brightness-110`}
       >
-        <div className="flex justify-between items-center mb-1">
+        <div className="flex justify-between items-center mb-1" id={`event-row-header-${e.id}`}>
           <div className="flex items-center gap-2">
             {style.icon}
             <Text as="span" variant="base" className="text-sm font-bold tracking-wide">

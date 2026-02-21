@@ -30,11 +30,14 @@ const EventTable: React.FC<Props> = ({ events, startEdit, remove }) => {
   const { t } = useTranslation();
 
   return (
-    <div className="overflow-x-auto mb-8 bg-cinematic-card rounded-xl border border-cinematic-border p-4">
-      <div className="mb-3 text-sm text-slate-400">
+    <div
+      className="overflow-x-auto mb-8 bg-cinematic-card rounded-xl border border-cinematic-border p-4"
+      id="event-table"
+    >
+      <div className="mb-3 text-sm text-slate-400" id="event-table-count">
         {events.length} event{events.length !== 1 ? 's' : ''} loaded
       </div>
-      <table className="w-full text-left border-collapse text-sm">
+      <table className="w-full text-left border-collapse text-sm" id="event-table-table">
         <thead>
           <tr className="text-xs uppercase tracking-wider text-slate-400">
             <th className="p-2">{t('admin.id')}</th>
@@ -54,10 +57,13 @@ const EventTable: React.FC<Props> = ({ events, startEdit, remove }) => {
           {events.map((e) => (
             <tr
               key={`${e.id}-${e.territoryType}`}
+              id={`event-table-row-${e.id}`}
               className="border-t border-cinematic-border hover:bg-cinematic-surface transition-colors"
             >
-              <td className="p-2 font-mono text-xs">{e.id}</td>
-              <td className="p-2">
+              <td className="p-2 font-mono text-xs" id={`event-table-id-${e.id}`}>
+                {e.id}
+              </td>
+              <td className="p-2" id={`event-table-title-${e.id}`}>
                 {typeof e.title === 'object' ? e.title.en : e.title}
               </td>
               <td className="p-2">

@@ -23,7 +23,7 @@ const Logo: React.FC<LogoProps> = ({ className = '', withSubtitle = false }) => 
         className="font-black italic"
         fill="white"
         style={{
-          fontSize: '52px',
+          fontSize: '42px',
           fontFamily: 'Inter, sans-serif',
           letterSpacing: '0.15em',
           textTransform: 'uppercase',
