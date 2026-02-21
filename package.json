@@ -13,19 +13,6 @@
     "lint": "eslint --quiet",
     "lint:quiet": "eslint --quiet",
     "prepare": "husky install",
-    "lint-staged": {
-      "*.txt": [
-        "git rm --cached",
-        "rm -f"
-      ],
-      "*.{ts,tsx,js,jsx}": [
-        "eslint --fix --quiet",
-        "prettier --write"
-      ],
-      "*.{json,css,md}": [
-        "prettier --write"
-      ]
-    },
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test --quiet --reporter=list",
