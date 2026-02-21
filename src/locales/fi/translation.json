@@ -117,7 +117,16 @@
     "registerBtn": "Rekisteröi Tunnukset",
     "loading": "Muodostetaan Yhteyttä...",
     "toggleRegister": "Tarvitsetko uuden tietokanta-ID:n? Rekisteröidy",
-    "toggleLogin": "Olemassa oleva Komentaja? Alusta Yhteys"
+    "toggleLogin": "Olemassa oleva Komentaja? Alusta Yhteys",
+    "configMissing": "Firebase-todennus ei ole määritetty. Aseta NEXT_PUBLIC_FIREBASE_API_KEY.",
+    "errors": {
+      "default": "Todennus epäonnistui.",
+      "invalidCredential": "Virheellinen todennustieto.",
+      "userNotFound": "Käyttäjää ei löytynyt sähköpostilla.",
+      "wrongPassword": "Väärä salasana.",
+      "emailInUse": "Tämä sähköpostiosoite on jo käytössä.",
+      "weakPassword": "Salasana on liian heikko."
+    }
   },
   "ui": {
     "subtitle": "Luolista Avaruusasemiin",

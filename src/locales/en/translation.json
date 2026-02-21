@@ -117,7 +117,16 @@
     "registerBtn": "Register Credentials",
     "loading": "Establishing Link...",
     "toggleRegister": "Require new database ID? Register",
-    "toggleLogin": "Existing Commander? Initialize Link"
+    "toggleLogin": "Existing Commander? Initialize Link",
+    "configMissing": "Firebase authentication is not configured. Please provide NEXT_PUBLIC_FIREBASE_API_KEY.",
+    "errors": {
+      "default": "Authentication failed.",
+      "invalidCredential": "Invalid credential provided.",
+      "userNotFound": "No user found with that email.",
+      "wrongPassword": "Incorrect password.",
+      "emailInUse": "This email is already registered.",
+      "weakPassword": "Password is too weak."
+    }
   },
   "ui": {
     "subtitle": "From Caves to Space Stations",

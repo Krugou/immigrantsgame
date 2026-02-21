@@ -7,6 +7,16 @@ vi.mock('react-i18next', () => ({ useTranslation: () => ({ t: (k: string) => k }
 import EventForm from './EventForm';
 import { EventTemplate } from './EventTable';
 
+// stub game context so component can render
+const fakeContext = {
+  sysConfig: {
+    territoryTypes: ['rural'],
+    eventTypes: ['immigration'],
+    categories: ['opportunity'],
+  },
+};
+vi.mock('../../context/GameContext', () => ({ useGame: () => fakeContext }));
+
 describe('EventForm', () => {
   const dummy: EventTemplate = {
     id: '1',

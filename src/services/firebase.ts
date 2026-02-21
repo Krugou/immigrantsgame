@@ -16,3 +16,8 @@ const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+
+// helper used by UI to know whether the config is real or just placeholder
+export const isFirebaseConfigured = () =>
+  // API key is required for auth; if it's the dummy placeholder we treat as unconfigured
+  Boolean(firebaseConfig.apiKey) && firebaseConfig.apiKey !== 'dummy';

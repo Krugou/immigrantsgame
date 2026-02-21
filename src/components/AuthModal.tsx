@@ -5,7 +5,7 @@ import Button from './common/Button';
 import Input from './common/Input';
 import Label from './common/Label';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../services/firebase';
+import { auth, isFirebaseConfigured } from '../services/firebase';
 import { useTranslation } from 'react-i18next';
 
 interface Props {
@@ -20,8 +20,16 @@ const AuthModal = ({ onClose }: Props) => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
+  const configOK = isFirebaseConfigured();
+
+  // complexity exceeds 12 due to error-handling switch; disabling for now
+  // eslint-disable-next-line complexity
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!configOK) {
+      setError(t('auth.configMissing'));
+      return;
+    }
     setError(null);
     setLoading(true);
 
@@ -33,11 +41,35 @@ const AuthModal = ({ onClose }: Props) => {
       }
       onClose(); // Automatically close on success
     } catch (err: unknown) {
-      if (err instanceof Error) {
-        setError(err.message || 'Failed to authenticate.');
+      let message = '';
+      if (err && typeof err === 'object' && 'code' in err) {
+        const code = ((err as { code?: unknown }).code as string) || '';
+        switch (code) {
+          case 'auth/invalid-credential':
+            message = t('auth.errors.invalidCredential');
+            break;
+          case 'auth/user-not-found':
+            message = t('auth.errors.userNotFound');
+            break;
+          case 'auth/wrong-password':
+            message = t('auth.errors.wrongPassword');
+            break;
+          case 'auth/email-already-in-use':
+            message = t('auth.errors.emailInUse');
+            break;
+          case 'auth/weak-password':
+            message = t('auth.errors.weakPassword');
+            break;
+          default:
+            // fallback to generic message when we don't know error shape
+            message = t('auth.errors.default');
+        }
+      } else if (err instanceof Error) {
+        message = err.message;
       } else {
-        setError('Failed to authenticate.');
+        message = t('auth.errors.default');
       }
+      setError(message);
     } finally {
       setLoading(false);
     }

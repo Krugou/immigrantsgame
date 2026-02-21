@@ -16,9 +16,14 @@ export const metadata: Metadata = {
   title: 'The Immigrants - Space Colonization',
   description:
     'An advanced event-driven incremental game about population movement and territory expansion.',
-  // keep the string value in sync with the variable defined in `colors.ts`
-  themeColor: colors.theme,
   manifest: '/manifest.json',
+};
+
+// move themeColor to viewport to satisfy newer Next.js requirements
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: colors.theme,
 };
 
 const RootLayout = ({

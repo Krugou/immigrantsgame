@@ -117,8 +117,12 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // Load system configuration from API
   useEffect(() => {
     const fetchConfig = async () => {
+      // avoid running in non-browser environments where relative URLs fail
+      if (typeof window === 'undefined' || !window.location) {
+        return;
+      }
       try {
-        const res = await fetch('/api/admin/config');
+        const res = await fetch(`${window.location.origin}/api/admin/config`);
         if (res.ok) {
           const data = await res.json();
           setSysConfig(data);

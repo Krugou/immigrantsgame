@@ -11,6 +11,11 @@ const fakeContext = {
   togglePolicy: vi.fn(),
   toggleTech: vi.fn(),
   simulateTicks: vi.fn(),
+  sysConfig: {
+    territoryTypes: ['rural'],
+    eventTypes: ['immigration'],
+    categories: ['opportunity'],
+  },
 };
 
 // stub fetch because component hits /api/admin/events

@@ -25,14 +25,21 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setUser(currentUser);
 
       if (currentUser) {
-        // Option to ensure user profile exists in db
-        const userRef = doc(db, 'users', currentUser.uid);
-        const userDoc = await getDoc(userRef);
-        if (!userDoc.exists()) {
-          await setDoc(userRef, {
-            displayName: currentUser.displayName || 'Anonymous',
-            createdAt: Date.now(),
-          });
+        // Option to ensure user profile exists in db.  Wrap in try/catch so
+        // permission errors don't bubble out as uncaught promise rejections.
+        try {
+          const userRef = doc(db, 'users', currentUser.uid);
+          const userDoc = await getDoc(userRef);
+          if (!userDoc.exists()) {
+            await setDoc(userRef, {
+              displayName: currentUser.displayName || 'Anonymous',
+              createdAt: Date.now(),
+            });
+          }
+        } catch (e: unknown) {
+          // Firestore permission errors are common if the rules are too strict.
+          console.error('failed to ensure user profile in Firestore', e);
+          // you could surface a UI notification here if desired
         }
       }
       setLoading(false);
@@ -56,8 +63,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const stateRef = doc(db, 'saves', user.uid);
       await setDoc(stateRef, state);
-    } catch (e) {
-      console.error('Error saving strictly to cloud', e);
+    } catch (e: unknown) {
+      console.error('Error saving game state to cloud (permission?)', e);
+      // optionally notify the UI that the save failed because of permissions
     }
   };
 
@@ -71,8 +79,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (stateSnap.exists()) {
         return stateSnap.data();
       }
-    } catch (e) {
-      console.error('Error loading strictly from cloud', e);
+    } catch (e: unknown) {
+      console.error('Error loading game state from cloud (permission?)', e);
     }
     return null;
   };
