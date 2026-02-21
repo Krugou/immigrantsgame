@@ -1,0 +1,13 @@
+{
+  "*.txt": [
+    "git rm --cached",
+    "rm -f"
+  ],
+  "*.{ts,tsx,js,jsx}": [
+    "eslint --fix --quiet",
+    "prettier --write"
+  ],
+  "*.{json,css,md}": [
+    "prettier --write"
+  ]
+}
