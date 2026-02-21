@@ -12,6 +12,7 @@
     "generate:icons": "tsx ./scripts/generate-icons.ts",
     "lint": "eslint --quiet",
     "lint:quiet": "eslint --quiet",
+    "lint:staged": "eslint --fix --quiet || true",
     "prepare": "husky install",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
