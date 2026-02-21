@@ -1,24 +1,48 @@
 {
-  "name": "immigrantsgame",
+  "name": "frontend",
   "version": "1.0.0",
-  "main": "node_modules/expo/AppEntry.js",
+  "private": true,
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web"
+    "dev": "cross-env PORT=3001 next dev --experimental-https",
+    "build": "next build",
+    "lint": "eslint --quiet",
+    "lint:quiet": "eslint --quiet",
+    "test": "vitest run",
+    "test:unit": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test --quiet --reporter=list",
+    "check:i18n": "tsx ../scripts/check-translations.ts",
+    "generate:icons": "tsx ../scripts/generate-icons.ts"
   },
   "dependencies": {
-    "expo": "~54.0.29",
-    "expo-status-bar": "~1.4.4",
-    "react": "18.2.0",
-    "react-native": "0.71.7",
-    "react-dom": "18.2.0",
-    "react-native-web": "~0.18.10",
-    "@expo/webpack-config": "^18.1.4"
+    "framer-motion": "^12.34.3",
+    "i18next": "^25.8.13",
+    "i18next-browser-languagedetector": "^8.2.1",
+    "lucide-react": "^0.575.0",
+    "next": "16.1.6",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "react-i18next": "^16.5.4",
+    "react-virtuoso": "^4.18.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
-  },
-  "private": true
+    "@axe-core/playwright": "^4.11.1",
+    "@playwright/test": "^1.58.2",
+    "@tailwindcss/postcss": "^4.2.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitest/coverage-v8": "^4.0.18",
+    "eslint-config-next": "16.1.6",
+    "eslint-plugin-check-file": "^3.3.1",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "jsdom": "^28.1.0",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.2.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
+    "vitest": "^4.0.18"
+  }
 }

@@ -1,0 +1,98 @@
+{
+  "milestones": [
+    {
+      "id": "milestone_10",
+      "title": "Growing Community",
+      "description": "Your community reaches 10 people! Word spreads about your welcoming environment.",
+      "type": "milestone",
+      "populationChange": 2.0,
+      "probability": 1.0,
+      "threshold": 10,
+      "category": "milestone"
+    },
+    {
+      "id": "milestone_25",
+      "title": "Established Settlement",
+      "description": "With 25 people, your settlement becomes well-known in the region.",
+      "type": "milestone",
+      "populationChange": 3.0,
+      "probability": 1.0,
+      "threshold": 25,
+      "category": "milestone"
+    },
+    {
+      "id": "milestone_50",
+      "title": "Thriving Town",
+      "description": "Your community of 50 people attracts attention from neighboring regions.",
+      "type": "milestone",
+      "populationChange": 5.0,
+      "probability": 1.0,
+      "threshold": 50,
+      "category": "milestone"
+    },
+    {
+      "id": "milestone_100",
+      "title": "Regional Hub",
+      "description": "One hundred people call your settlement home, making it a regional hub.",
+      "type": "milestone",
+      "populationChange": 10.0,
+      "probability": 1.0,
+      "threshold": 100,
+      "category": "milestone"
+    },
+    {
+      "id": "milestone_200",
+      "title": "Major Settlement",
+      "description": "Your settlement of 200 people becomes a major population center.",
+      "type": "milestone",
+      "populationChange": 15.0,
+      "probability": 1.0,
+      "threshold": 200,
+      "category": "milestone"
+    },
+    {
+      "id": "milestone_500",
+      "title": "City Status",
+      "description": "Five hundred residents make your settlement officially a city.",
+      "type": "milestone",
+      "populationChange": 25.0,
+      "probability": 1.0,
+      "threshold": 500,
+      "category": "milestone"
+    },
+    {
+      "id": "milestone_1000",
+      "title": "Metropolitan Area",
+      "description": "A thousand people live in your metropolitan area spanning multiple territories.",
+      "type": "milestone",
+      "populationChange": 50.0,
+      "probability": 1.0,
+      "threshold": 1000,
+      "category": "milestone"
+    },
+    {
+      "id": "milestone_underground",
+      "title": "Underground Pioneer",
+      "description": "First community to successfully establish underground settlements.",
+      "type": "milestone",
+      "populationChange": 20.0,
+      "probability": 1.0,
+      "threshold": 0,
+      "category": "achievement",
+      "trigger": "territory_unlock",
+      "territoryType": "underground"
+    },
+    {
+      "id": "milestone_space",
+      "title": "Space Pioneer",
+      "description": "Humanity's first permanent space settlements are established.",
+      "type": "milestone",
+      "populationChange": 30.0,
+      "probability": 1.0,
+      "threshold": 0,
+      "category": "achievement",
+      "trigger": "territory_unlock",
+      "territoryType": "orbital"
+    }
+  ]
+}

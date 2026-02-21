@@ -1,0 +1,135 @@
+{
+  "appTitle": "Siirtolaiset",
+  "territories": "Alueet",
+  "totalPopulation": "Yhteensä: {{population}}",
+  "admin.techTree": "Teknologiapuu",
+  "tech.advancedAgriculture": "Edistynyt maatalous",
+  "tech.efficientTransport": "Tehokas kuljetus",
+  "tech.universalHealthcare": "Yleinen terveydenhuolto",
+  "locked": "LUKITTU",
+  "nextUnlock": "Seuraava avaus: {{territory}} {{threshold}} ihmisellä",
+  "allTerritoriesUnlocked": "Kaikki alueet avattu!",
+  "settings": "Asetukset",
+  "language": "Kieli",
+  "gameSpeed": "Pelin nopeus",
+  "normalSpeed": "Normaali",
+  "fastSpeed": "Nopea",
+  "veryFastSpeed": "Hyvin nopea",
+  "slowSpeed": "Hidas",
+  "territory": {
+    "suburbs": {
+      "name": "Lähiö",
+      "description": "Rauhallinen asuinalue kaupungin laitamilla."
+    },
+    "urban_center": {
+      "name": "Kaupunkikeskus",
+      "description": "Vilkas kaupunki työmahdollisuuksineen ja kulttuurisena monimuotoisuutena."
+    },
+    "metropolis": {
+      "name": "Metropoli",
+      "description": "Valtava, kukoistava kaupunki, joka kattaa useita piirejä."
+    },
+    "border_town": {
+      "name": "Rajakaupunki",
+      "description": "Strateginen paikka turvapaikkaa ja uusia alkuja hakeville."
+    },
+    "coastal_port": {
+      "name": "Rannikkosatama",
+      "description": "Merellinen keskus kalastus- ja kauppamahdollisuuksineen."
+    },
+    "cave_network": {
+      "name": "Luolaverkosto",
+      "description": "Maanalaiset luolat, jotka tarjoavat suojaa ja turvaa."
+    },
+    "underground_city": {
+      "name": "Maanalainen kaupunki",
+      "description": "Piilotettu kaupunki maan pinnan alla edistyneillä tiloilla."
+    },
+    "mountains": {
+      "name": "Vuoristoasutus",
+      "description": "Korkealla sijaitseva yhteisö upeilla näkymillä ja puhtaalla ilmalla."
+    },
+    "desert": {
+      "name": "Aavikon tukikohta",
+      "description": "Aurinkoenergialla toimiva asutus ankarassa aavikkoympäristössä."
+    },
+    "arctic": {
+      "name": "Arktinen tukikohta",
+      "description": "Tutkimus- ja asuintilat jäätyneessä erämaassa."
+    },
+    "moon": {
+      "name": "Kuusiirtokunta",
+      "description": "Ensimmäinen pysyvä ihmisasutus Kuussa."
+    },
+    "orbital": {
+      "name": "Kiertorata-alusta",
+      "description": "Avaruudessa sijaitseva maata kiertävä asumusalue."
+    },
+    "space_station": {
+      "name": "Avaruusasema Alpha",
+      "description": "Edistynyt planeettojen välinen keskus syvän avaruuden tutkimiseen."
+    },
+    "interstellar": {
+      "name": "Tähtienvälinen Arkki",
+      "description": "Sukupolvialus, joka matkustaa uuteen tähtijärjestelmään."
+    }
+  },
+  "auth": {
+    "welcomeBack": "Tervetuloa takaisin Komentaja",
+    "registerId": "Rekisteröi Tietokanta-ID",
+    "emailLabel": "Siirtokoodi (Sähköposti)",
+    "passwordLabel": "Pääsysalain (Salasana)",
+    "loginBtn": "Alusta Yhteys",
+    "registerBtn": "Rekisteröi Tunnukset",
+    "loading": "Muodostetaan Yhteyttä...",
+    "toggleRegister": "Tarvitsetko uuden tietokanta-ID:n? Rekisteröidy",
+    "toggleLogin": "Olemassa oleva Komentaja? Alusta Yhteys"
+  },
+  "ui": {
+    "subtitle": "Luolista Avaruusasemiin",
+    "commander": "Komentaja {{name}}",
+    "save": "Tallenna",
+    "signInUp": "Kirjaudu / Rekisteröidy",
+    "totalImmigrants": "Avustetut Siirtolaiset Yhteensä",
+    "guideImmigrants": "Opasta Siirtolaisia",
+    "capacityUsage": "Kapasiteetin käyttö",
+    "eventLog": "Tapahtumaloki",
+    "awaiting": "Odotetaan lähetystä...",
+    "population": "Väkiluku",
+    "techTree": "Teknologiapuu",
+    "techTreePlaceholder": "Develop research nodes to unlock powerful modifiers.",
+    "techTreeComingSoon": "Tech tree coming soon!",
+    "research": "Tutki",
+    "unresearch": "Peruuta tutkimus"
+  },
+  "policies": {
+    "openBorders": "Avoimet rajat",
+    "closedBorders": "Suljetut rajat",
+    "description": {
+      "openBorders": "Maahanmuutto tapahtumat vahvistuvat.",
+      "closedBorders": "Maahanmuutto tapahtumat vähenevät."
+    }
+  },
+  "admin": {
+    "title": "Admin - Tapahtumahallinta",
+    "back": "Takaisin peliin",
+    "policies": "Politiikat",
+    "id": "ID",
+    "titleCol": "Otsikko",
+    "type": "Tyyppi",
+    "territory": "Alue",
+    "population": "Väestö",
+    "probability": "Todennäköisyys",
+    "category": "Kategoria",
+    "threshold": "Kynnys",
+    "actions": "Toiminnot",
+    "newEvent": "Uusi tapahtuma",
+    "editEvent": "Muokkaa tapahtumaa",
+    "save": "Tallenna",
+    "cancel": "Peruuta",
+    "delete": "Poista",
+    "description": "Kuvaus",
+    "simulateHour": "Simuloi 1 tunti",
+    "simulated": "Simuloitu {{hours}} tunti(a)"
+  }
+}

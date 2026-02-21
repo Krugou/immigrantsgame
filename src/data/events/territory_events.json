@@ -1,0 +1,527 @@
+{
+  "rural": [
+    {
+      "id": "rural_harvest",
+      "title": "Good Harvest",
+      "description": "A successful harvest brings prosperity, attracting families seeking agricultural work.",
+      "type": "immigration",
+      "populationChange": 2.0,
+      "probability": 0.3,
+      "category": "opportunity"
+    },
+    {
+      "id": "rural_drought",
+      "title": "Drought",
+      "description": "A severe drought forces some families to seek opportunities elsewhere.",
+      "type": "emigration",
+      "populationChange": -1.0,
+      "probability": 0.1,
+      "category": "disaster"
+    },
+    {
+      "id": "rural_newcomers",
+      "title": "New Families Arrive",
+      "description": "Word spreads about your welcoming community, and new immigrant families arrive.",
+      "type": "immigration",
+      "populationChange": 3.0,
+      "probability": 0.2,
+      "category": "opportunity"
+    },
+    {
+      "id": "rural_crop_failure",
+      "title": "Crop Failure",
+      "description": "A disease destroys the crops, forcing families to abandon their farms.",
+      "type": "emigration",
+      "populationChange": -2.0,
+      "probability": 0.08,
+      "category": "disaster"
+    },
+    {
+      "id": "rural_epidemic",
+      "title": "Rural Epidemic",
+      "description": "An outbreak of disease spreads through the farming community.",
+      "type": "emigration",
+      "populationChange": -3.0,
+      "probability": 0.05,
+      "category": "epidemic"
+    }
+  ],
+  "urban": [
+    {
+      "id": "urban_jobs",
+      "title": "Job Opportunities",
+      "description": "New businesses open, creating jobs that attract workers from rural areas.",
+      "type": "immigration",
+      "populationChange": 5.0,
+      "probability": 0.4,
+      "category": "opportunity"
+    },
+    {
+      "id": "urban_housing",
+      "title": "Housing Crisis",
+      "description": "Rising rents force some families to move to more affordable areas.",
+      "type": "emigration",
+      "populationChange": -2.0,
+      "probability": 0.15,
+      "category": "conflict"
+    },
+    {
+      "id": "urban_festival",
+      "title": "Cultural Festival",
+      "description": "A celebration of immigrant cultures attracts visitors, some of whom decide to stay.",
+      "type": "immigration",
+      "populationChange": 4.0,
+      "probability": 0.1,
+      "category": "opportunity"
+    },
+    {
+      "id": "urban_economic_crash",
+      "title": "Economic Downturn",
+      "description": "Businesses close and unemployment rises, forcing people to seek opportunities elsewhere.",
+      "type": "emigration",
+      "populationChange": -4.0,
+      "probability": 0.08,
+      "category": "disaster"
+    },
+    {
+      "id": "urban_riots",
+      "title": "Civil Unrest",
+      "description": "Tensions boil over into violence, making many residents flee to safer areas.",
+      "type": "emigration",
+      "populationChange": -6.0,
+      "probability": 0.05,
+      "category": "conflict"
+    }
+  ],
+  "border": [
+    {
+      "id": "border_crossing",
+      "title": "Border Crossing",
+      "description": "A group of refugees seeks asylum, finding safety in your community.",
+      "type": "immigration",
+      "populationChange": 8.0,
+      "probability": 0.3,
+      "category": "opportunity"
+    },
+    {
+      "id": "border_tensions",
+      "title": "Border Tensions",
+      "description": "Political tensions at the border create uncertainty, causing some to leave.",
+      "type": "emigration",
+      "populationChange": -3.0,
+      "probability": 0.2,
+      "category": "conflict"
+    },
+    {
+      "id": "border_aid",
+      "title": "Humanitarian Aid",
+      "description": "International aid organizations establish support services, attracting displaced families.",
+      "type": "immigration",
+      "populationChange": 6.0,
+      "probability": 0.15,
+      "category": "opportunity"
+    },
+    {
+      "id": "border_closure",
+      "title": "Border Closure",
+      "description": "Authorities seal the border, trapping families and creating desperation.",
+      "type": "emigration",
+      "populationChange": -5.0,
+      "probability": 0.1,
+      "category": "conflict"
+    }
+  ],
+  "coastal": [
+    {
+      "id": "coastal_fishing",
+      "title": "Abundant Fishing",
+      "description": "Rich fishing grounds attract maritime workers and their families.",
+      "type": "immigration",
+      "populationChange": 3.0,
+      "probability": 0.25,
+      "category": "opportunity"
+    },
+    {
+      "id": "coastal_storm",
+      "title": "Coastal Storm",
+      "description": "A severe storm damages infrastructure, forcing some residents to relocate.",
+      "type": "emigration",
+      "populationChange": -4.0,
+      "probability": 0.1,
+      "category": "disaster"
+    },
+    {
+      "id": "coastal_trade",
+      "title": "Trade Routes",
+      "description": "New shipping routes bring economic opportunities and immigrant traders.",
+      "type": "immigration",
+      "populationChange": 5.0,
+      "probability": 0.2,
+      "category": "opportunity"
+    },
+    {
+      "id": "coastal_tsunami",
+      "title": "Tsunami Warning",
+      "description": "A massive wave destroys coastal settlements, forcing mass evacuation.",
+      "type": "emigration",
+      "populationChange": -7.0,
+      "probability": 0.03,
+      "category": "disaster"
+    }
+  ],
+  "caves": [
+    {
+      "id": "caves_shelter",
+      "title": "Natural Shelter",
+      "description": "Cave systems provide protection from harsh weather, attracting desperate families.",
+      "type": "immigration",
+      "populationChange": 4.0,
+      "probability": 0.3,
+      "category": "opportunity"
+    },
+    {
+      "id": "caves_mining",
+      "title": "Mineral Discovery",
+      "description": "Valuable minerals are found in the caves, attracting miners and their families.",
+      "type": "immigration",
+      "populationChange": 6.0,
+      "probability": 0.2,
+      "category": "opportunity"
+    },
+    {
+      "id": "caves_collapse",
+      "title": "Cave Collapse",
+      "description": "Unstable cave structures collapse, forcing evacuations and relocations.",
+      "type": "emigration",
+      "populationChange": -5.0,
+      "probability": 0.1,
+      "category": "disaster"
+    },
+    {
+      "id": "caves_flooding",
+      "title": "Underground Flooding",
+      "description": "Underground rivers overflow, making the cave systems uninhabitable.",
+      "type": "emigration",
+      "populationChange": -3.0,
+      "probability": 0.08,
+      "category": "disaster"
+    }
+  ],
+  "underground": [
+    {
+      "id": "underground_tunnels",
+      "title": "Tunnel Network",
+      "description": "Hidden tunnels provide safe passage for refugees escaping persecution.",
+      "type": "immigration",
+      "populationChange": 7.0,
+      "probability": 0.25,
+      "category": "opportunity"
+    },
+    {
+      "id": "underground_resources",
+      "title": "Underground Resources",
+      "description": "Geothermal energy and underground water sources attract settlers.",
+      "type": "immigration",
+      "populationChange": 5.0,
+      "probability": 0.2,
+      "category": "opportunity"
+    },
+    {
+      "id": "underground_contamination",
+      "title": "Toxic Contamination",
+      "description": "Chemical leaks from the surface contaminate underground areas.",
+      "type": "emigration",
+      "populationChange": -6.0,
+      "probability": 0.1,
+      "category": "disaster"
+    },
+    {
+      "id": "underground_oxygen_crisis",
+      "title": "Oxygen Crisis",
+      "description": "Ventilation systems fail, making underground living dangerous.",
+      "type": "emigration",
+      "populationChange": -4.0,
+      "probability": 0.08,
+      "category": "disaster"
+    }
+  ],
+  "mountains": [
+    {
+      "id": "mountains_refuge",
+      "title": "Mountain Refuge",
+      "description": "High altitude settlements offer isolation and safety from conflicts below.",
+      "type": "immigration",
+      "populationChange": 5.0,
+      "probability": 0.3,
+      "category": "opportunity"
+    },
+    {
+      "id": "mountains_avalanche",
+      "title": "Avalanche",
+      "description": "A massive avalanche destroys mountain settlements, forcing mass evacuations.",
+      "type": "emigration",
+      "populationChange": -8.0,
+      "probability": 0.05,
+      "category": "disaster"
+    },
+    {
+      "id": "mountains_altitude_sickness",
+      "title": "Altitude Sickness",
+      "description": "Many settlers cannot adapt to the high altitude conditions.",
+      "type": "emigration",
+      "populationChange": -2.0,
+      "probability": 0.15,
+      "category": "epidemic"
+    },
+    {
+      "id": "mountains_mineral_wealth",
+      "title": "Mountain Mining",
+      "description": "Rich mineral deposits attract mining operations and workers.",
+      "type": "immigration",
+      "populationChange": 6.0,
+      "probability": 0.2,
+      "category": "opportunity"
+    }
+  ],
+  "desert": [
+    {
+      "id": "desert_oasis",
+      "title": "Oasis Discovery",
+      "description": "A hidden oasis provides water and shelter for desert travelers.",
+      "type": "immigration",
+      "populationChange": 4.0,
+      "probability": 0.25,
+      "category": "opportunity"
+    },
+    {
+      "id": "desert_sandstorm",
+      "title": "Sandstorm",
+      "description": "Massive sandstorms bury settlements and force evacuations.",
+      "type": "emigration",
+      "populationChange": -5.0,
+      "probability": 0.1,
+      "category": "disaster"
+    },
+    {
+      "id": "desert_heat_wave",
+      "title": "Extreme Heat",
+      "description": "Record temperatures make desert life unbearable, forcing migration.",
+      "type": "emigration",
+      "populationChange": -3.0,
+      "probability": 0.12,
+      "category": "disaster"
+    },
+    {
+      "id": "desert_solar_energy",
+      "title": "Solar Energy Boom",
+      "description": "Solar power installations bring jobs and opportunities to the desert.",
+      "type": "immigration",
+      "populationChange": 7.0,
+      "probability": 0.15,
+      "category": "opportunity"
+    }
+  ],
+  "arctic": [
+    {
+      "id": "arctic_research",
+      "title": "Research Station",
+      "description": "Scientific research facilities attract researchers and support staff.",
+      "type": "immigration",
+      "populationChange": 3.0,
+      "probability": 0.2,
+      "category": "opportunity"
+    },
+    {
+      "id": "arctic_blizzard",
+      "title": "Polar Blizzard",
+      "description": "Extreme weather conditions make arctic settlements uninhabitable.",
+      "type": "emigration",
+      "populationChange": -6.0,
+      "probability": 0.1,
+      "category": "disaster"
+    },
+    {
+      "id": "arctic_ice_melting",
+      "title": "Ice Melting",
+      "description": "Climate change melts ice foundations, destroying arctic communities.",
+      "type": "emigration",
+      "populationChange": -4.0,
+      "probability": 0.08,
+      "category": "disaster"
+    },
+    {
+      "id": "arctic_resource_extraction",
+      "title": "Arctic Resources",
+      "description": "Oil and gas discoveries bring industrial workers to the arctic.",
+      "type": "immigration",
+      "populationChange": 5.0,
+      "probability": 0.18,
+      "category": "opportunity"
+    }
+  ],
+  "orbital": [
+    {
+      "id": "orbital_construction",
+      "title": "Orbital Construction",
+      "description": "Space station construction projects attract skilled workers and engineers.",
+      "type": "immigration",
+      "populationChange": 4.0,
+      "probability": 0.25,
+      "category": "opportunity"
+    },
+    {
+      "id": "orbital_malfunction",
+      "title": "Life Support Failure",
+      "description": "Critical systems fail, forcing evacuation of orbital facilities.",
+      "type": "emigration",
+      "populationChange": -5.0,
+      "probability": 0.1,
+      "category": "disaster"
+    },
+    {
+      "id": "orbital_debris",
+      "title": "Space Debris",
+      "description": "Orbital debris damages structures, making space habitation dangerous.",
+      "type": "emigration",
+      "populationChange": -3.0,
+      "probability": 0.08,
+      "category": "disaster"
+    },
+    {
+      "id": "orbital_zero_g_adaptation",
+      "title": "Zero-G Adaptation Issues",
+      "description": "Many settlers cannot adapt to microgravity conditions.",
+      "type": "emigration",
+      "populationChange": -2.0,
+      "probability": 0.15,
+      "category": "epidemic"
+    }
+  ],
+  "suburbs": [
+    {
+      "id": "suburbs_expansion",
+      "title": "Suburban Expansion",
+      "description": "City dwellers move to the outskirts for affordable housing.",
+      "type": "immigration",
+      "populationChange": 10.0,
+      "probability": 0.4,
+      "category": "opportunity"
+    },
+    {
+      "id": "suburbs_commute",
+      "title": "Traffic Congestion",
+      "description": "Poor infrastructure makes commuting a nightmare, forcing some to leave.",
+      "type": "emigration",
+      "populationChange": -5.0,
+      "probability": 0.2,
+      "category": "conflict"
+    }
+  ],
+  "metropolis": [
+    {
+      "id": "metropolis_hub",
+      "title": "Global Hub",
+      "description": "The city becomes a global financial and cultural center.",
+      "type": "immigration",
+      "populationChange": 100.0,
+      "probability": 0.5,
+      "category": "opportunity"
+    },
+    {
+      "id": "metropolis_pollution",
+      "title": "Smog Alert",
+      "description": "Severe air pollution causes health issues and emigration.",
+      "type": "emigration",
+      "populationChange": -50.0,
+      "probability": 0.3,
+      "category": "disaster"
+    }
+  ],
+  "moon": [
+    {
+      "id": "moon_helium3",
+      "title": "Helium-3 Rush",
+      "description": "Discovery of Helium-3 deposits sparks a mining boom.",
+      "type": "immigration",
+      "populationChange": 20.0,
+      "probability": 0.4,
+      "category": "opportunity"
+    },
+    {
+      "id": "moon_low_g",
+      "title": "Bone Density Loss",
+      "description": "Long-term low gravity causes health problems.",
+      "type": "emigration",
+      "populationChange": -10.0,
+      "probability": 0.2,
+      "category": "epidemic"
+    }
+  ],
+  "spaceStation": [
+    {
+      "id": "space_station_trade",
+      "title": "Interplanetary Trade",
+      "description": "Space station becomes a hub for interplanetary commerce and migration.",
+      "type": "immigration",
+      "populationChange": 8.0,
+      "probability": 0.3,
+      "category": "opportunity"
+    },
+    {
+      "id": "space_station_research",
+      "title": "Advanced Research",
+      "description": "Cutting-edge research facilities attract scientists from across the galaxy.",
+      "type": "immigration",
+      "populationChange": 6.0,
+      "probability": 0.2,
+      "category": "opportunity"
+    },
+    {
+      "id": "space_station_reactor_failure",
+      "title": "Reactor Failure",
+      "description": "Critical power systems fail, threatening all life aboard the station.",
+      "type": "emigration",
+      "populationChange": -10.0,
+      "probability": 0.05,
+      "category": "disaster"
+    },
+    {
+      "id": "space_station_alien_contact",
+      "title": "Alien Contact",
+      "description": "First contact with alien species creates panic and mass evacuations.",
+      "type": "emigration",
+      "populationChange": -7.0,
+      "probability": 0.03,
+      "category": "conflict"
+    },
+    {
+      "id": "space_station_cosmic_radiation",
+      "title": "Cosmic Radiation",
+      "description": "Increased cosmic radiation exposure forces medical evacuations.",
+      "type": "emigration",
+      "populationChange": -4.0,
+      "probability": 0.1,
+      "category": "epidemic"
+    }
+  ],
+  "interstellar": [
+    {
+      "id": "interstellar_warp",
+      "title": "Warp Drive Breakthrough",
+      "description": "Faster-than-light travel brings colonists from distant systems.",
+      "type": "immigration",
+      "populationChange": 1000.0,
+      "probability": 0.6,
+      "category": "opportunity"
+    },
+    {
+      "id": "interstellar_void",
+      "title": "Lost in the Void",
+      "description": "A navigation error causes a colony ship to disappear.",
+      "type": "emigration",
+      "populationChange": -500.0,
+      "probability": 0.1,
+      "category": "disaster"
+    }
+  ]
+}

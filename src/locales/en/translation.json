@@ -1,0 +1,135 @@
+{
+  "appTitle": "The Immigrants",
+  "territories": "Territories",
+  "totalPopulation": "Total: {{population}}",
+  "admin.techTree": "Technology Tree",
+  "tech.advancedAgriculture": "Advanced Agriculture",
+  "tech.efficientTransport": "Efficient Transport",
+  "tech.universalHealthcare": "Universal Healthcare",
+  "locked": "LOCKED",
+  "nextUnlock": "Next unlock: {{territory}} at {{threshold}} people",
+  "allTerritoriesUnlocked": "All territories unlocked!",
+  "settings": "Settings",
+  "language": "Language",
+  "gameSpeed": "Game Speed",
+  "normalSpeed": "Normal",
+  "fastSpeed": "Fast",
+  "veryFastSpeed": "Very Fast",
+  "slowSpeed": "Slow",
+  "territory": {
+    "suburbs": {
+      "name": "Suburbs",
+      "description": "A quiet residential area on the outskirts of the city."
+    },
+    "urban_center": {
+      "name": "Urban Center",
+      "description": "A bustling city with job opportunities and cultural diversity."
+    },
+    "metropolis": {
+      "name": "Metropolis",
+      "description": "A massive, thriving city spanning multiple districts."
+    },
+    "border_town": {
+      "name": "Border Town",
+      "description": "A strategic location for those seeking refuge and new beginnings."
+    },
+    "coastal_port": {
+      "name": "Coastal Port",
+      "description": "A maritime hub with fishing and trade opportunities."
+    },
+    "cave_network": {
+      "name": "Cave Network",
+      "description": "Underground caves providing shelter and protection."
+    },
+    "underground_city": {
+      "name": "Underground City",
+      "description": "A hidden city beneath the surface with advanced facilities."
+    },
+    "mountains": {
+      "name": "Mountain Settlement",
+      "description": "High-altitude community with stunning views and clean air."
+    },
+    "desert": {
+      "name": "Desert Outpost",
+      "description": "Solar-powered settlement in the harsh desert environment."
+    },
+    "arctic": {
+      "name": "Arctic Base",
+      "description": "Research and residential facilities in the frozen wilderness."
+    },
+    "moon": {
+      "name": "Lunar Colony",
+      "description": "The first permanent human settlement on the Moon."
+    },
+    "orbital": {
+      "name": "Orbital Platform",
+      "description": "Space-based habitat orbiting Earth."
+    },
+    "space_station": {
+      "name": "Space Station Alpha",
+      "description": "Advanced interplanetary hub for deep space exploration."
+    },
+    "interstellar": {
+      "name": "Interstellar Ark",
+      "description": "A generational ship traveling to a new star system."
+    }
+  },
+  "auth": {
+    "welcomeBack": "Welcome Back Commander",
+    "registerId": "Register Database ID",
+    "emailLabel": "Transmission Code (Email)",
+    "passwordLabel": "Access Cipher (Password)",
+    "loginBtn": "Initialize Link",
+    "registerBtn": "Register Credentials",
+    "loading": "Establishing Link...",
+    "toggleRegister": "Require new database ID? Register",
+    "toggleLogin": "Existing Commander? Initialize Link"
+  },
+  "ui": {
+    "subtitle": "From Caves to Space Stations",
+    "commander": "Commander {{name}}",
+    "save": "Save",
+    "signInUp": "Sign In / Sign Up",
+    "totalImmigrants": "Total Immigrants Assisted",
+    "guideImmigrants": "Guide Immigrants",
+    "capacityUsage": "Capacity usage",
+    "eventLog": "Event Log",
+    "awaiting": "Awaiting transmission...",
+    "population": "Population",
+    "techTree": "Technology Tree",
+    "techTreePlaceholder": "Develop research nodes to unlock powerful modifiers.",
+    "techTreeComingSoon": "Tech tree coming soon!",
+    "research": "Research",
+    "unresearch": "Unresearch"
+  },
+  "policies": {
+    "openBorders": "Open Borders",
+    "closedBorders": "Closed Borders",
+    "description": {
+      "openBorders": "Immigration events are boosted.",
+      "closedBorders": "Immigration events are reduced."
+    }
+  },
+  "admin": {
+    "title": "Admin - Event Manager",
+    "back": "Back to game",
+    "policies": "Policies",
+    "id": "ID",
+    "titleCol": "Title",
+    "type": "Type",
+    "territory": "Territory",
+    "population": "Population",
+    "probability": "Probability",
+    "category": "Category",
+    "threshold": "Threshold",
+    "actions": "Actions",
+    "newEvent": "New event",
+    "editEvent": "Edit event",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "description": "Description",
+    "simulateHour": "Simulate 1 Hour",
+    "simulated": "Simulated {{hours}} hour(s) of ticks"
+  }
+}
