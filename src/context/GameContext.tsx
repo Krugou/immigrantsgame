@@ -27,10 +27,18 @@ import { ModifierService } from '../services/ModifierService';
 import { TechService } from '../services/TechService';
 import StorageModal from '../components/StorageModal';
 
+export interface LocalizedItem {
+  key: string;
+  en: string;
+  fi: string;
+}
+
+export type MaybeLocalizedList = string[] | LocalizedItem[];
+
 export interface SystemConfig {
-  territoryTypes: string[];
-  eventTypes: string[];
-  categories: string[];
+  territoryTypes: MaybeLocalizedList;
+  eventTypes: MaybeLocalizedList;
+  categories: MaybeLocalizedList;
 }
 
 interface GameContextType {

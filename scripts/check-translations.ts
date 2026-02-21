@@ -2,10 +2,10 @@
 import fs from 'fs';
 import path from 'path';
 
-// Recursively collect keys of an object, using dot notation, but only for leaf nodes (string/number/boolean/null)
+// Recursively collect keys of an object, using dot notation for all leaf nodes
 function collectKeys(obj: any, prefix = ''): string[] {
   if (typeof obj !== 'object' || obj === null) {
-    return [prefix];
+    return [];
   }
   const keys: string[] = [];
   for (const k of Object.keys(obj)) {
@@ -79,16 +79,20 @@ const codeFiles = getFiles(srcDir).filter(
 );
 
 const keysInCode = new Set<string>();
-const tRegex = /\bt\s*\(\s*['"`]([^'"`]+)['"`]\s*\)/g;
+// Enhanced regex to match:
+// t('key'), t("key"), t(`key`), t(["key"]), t(['key']), t({ key: "key" })
+const tRegex =
+  /\bt\s*\(\s*(["'`])([^"'`\[\{]+)\1\s*\)|\bt\s*\(\s*\[\s*(["'`])([^"'`]+)\3\s*\]\s*\)|\bt\s*\(\s*\{[^}]*key\s*:\s*(["'`])([^"'`]+)\5[^}]*\}\s*\)/g;
 
 for (const file of codeFiles) {
   const content = fs.readFileSync(file, 'utf-8');
   let match;
-
   while ((match = tRegex.exec(content)) !== null) {
-    const key = match[1];
-    // Ignore keys with variables (e.g. territory.${id}.name)
-    if (!key.includes('${')) {
+    // match[2]: t('key'), t("key"), t(`key`)
+    // match[4]: t(["key"]), t(['key'])
+    // match[6]: t({ key: "key" })
+    const key = match[2] || match[4] || match[6];
+    if (key && !key.includes('${')) {
       keysInCode.add(key);
     }
   }
@@ -98,9 +102,6 @@ const englishKeys = allKeysByFile['en'] || new Set();
 const missingFromLocales = [...keysInCode].filter((k) => !englishKeys.has(k));
 
 console.log(`\nFound ${keysInCode.size} unique translation keys in code.`);
-if (keysInCode.has('admin.threshold')) {
-  console.log('✓ Verified: admin.threshold is correctly detected in code.');
-}
 
 if (missingFromLocales.length) {
   issueFound = true;

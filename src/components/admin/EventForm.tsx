@@ -4,7 +4,7 @@ import Input from '../common/Input';
 import Label from '../common/Label';
 import { EventTemplate } from './EventTable';
 
-import { useGame } from '../../context/GameContext';
+import { useGame, LocalizedItem } from '../../context/GameContext';
 
 interface Translation {
   en: string;
@@ -37,8 +37,16 @@ const selectClass =
   'p-3 rounded-md bg-cinematic-surface border border-cinematic-border text-white text-sm outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition-all';
 
 const EventForm: React.FC<Props> = ({ editing, form, handleChange, save, resetForm }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { sysConfig } = useGame();
+
+  const renderOption = (entry: string | LocalizedItem) => {
+    if (typeof entry === 'string') {
+      return entry;
+    }
+    const lang = (i18n.language?.split('-')[0] as 'en' | 'fi') || 'en';
+    return entry[lang] || entry.en;
+  };
 
   return (
     <div className="cinematic-card max-w-2xl">
@@ -58,25 +66,25 @@ const EventForm: React.FC<Props> = ({ editing, form, handleChange, save, resetFo
             <Label>{t('admin.id')}</Label>
             <Input name="id" value={form.id || ''} onChange={handleChange} />
           </div>
-        {/* ── Title ── */}
-        <div className="grid grid-cols-2 gap-4">
-          <div className="flex flex-col gap-1.5">
-            <Label>Title (EN)</Label>
-            <Input
-              name="title_en"
-              value={typeof form.title === 'object' ? form.title.en : form.title || ''}
-              onChange={handleChange}
-            />
+          {/* ── Title ── */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="flex flex-col gap-1.5">
+              <Label>Title (EN)</Label>
+              <Input
+                name="title_en"
+                value={typeof form.title === 'object' ? form.title.en : form.title || ''}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <Label>Otsikko (FI)</Label>
+              <Input
+                name="title_fi"
+                value={typeof form.title === 'object' ? form.title.fi : ''}
+                onChange={handleChange}
+              />
+            </div>
           </div>
-          <div className="flex flex-col gap-1.5">
-            <Label>Otsikko (FI)</Label>
-            <Input
-              name="title_fi"
-              value={typeof form.title === 'object' ? form.title.fi : ''}
-              onChange={handleChange}
-            />
-          </div>
-        </div>
         </div>
 
         {/* ── Description ── */}
@@ -86,7 +94,9 @@ const EventForm: React.FC<Props> = ({ editing, form, handleChange, save, resetFo
             <textarea
               className={`${selectClass} h-24`}
               name="description_en"
-              value={typeof form.description === 'object' ? form.description.en : form.description || ''}
+              value={
+                typeof form.description === 'object' ? form.description.en : form.description || ''
+              }
               onChange={handleChange}
             />
           </div>
@@ -111,11 +121,14 @@ const EventForm: React.FC<Props> = ({ editing, form, handleChange, save, resetFo
               value={form.type || 'immigration'}
               onChange={handleChange}
             >
-              {(sysConfig.eventTypes as string[]).map((v: string) => (
-                <option key={v} value={v}>
-                  {v}
-                </option>
-              ))}
+              {(sysConfig.eventTypes as (string | LocalizedItem)[]).map((v) => {
+                const value = typeof v === 'string' ? v : v.key;
+                return (
+                  <option key={value} value={value}>
+                    {renderOption(v)}
+                  </option>
+                );
+              })}
             </select>
           </div>
           <div className="flex flex-col gap-1.5">
@@ -126,11 +139,14 @@ const EventForm: React.FC<Props> = ({ editing, form, handleChange, save, resetFo
               value={form.category || 'opportunity'}
               onChange={handleChange}
             >
-              {(sysConfig.categories as string[]).map((v: string) => (
-                <option key={v} value={v}>
-                  {v}
-                </option>
-              ))}
+              {(sysConfig.categories as (string | LocalizedItem)[]).map((v) => {
+                const value = typeof v === 'string' ? v : v.key;
+                return (
+                  <option key={value} value={value}>
+                    {renderOption(v)}
+                  </option>
+                );
+              })}
             </select>
           </div>
         </div>
@@ -145,11 +161,14 @@ const EventForm: React.FC<Props> = ({ editing, form, handleChange, save, resetFo
               value={form.territoryType || 'rural'}
               onChange={handleChange}
             >
-              {(sysConfig.territoryTypes as string[]).map((v: string) => (
-                <option key={v} value={v}>
-                  {v}
-                </option>
-              ))}
+              {(sysConfig.territoryTypes as (string | LocalizedItem)[]).map((v) => {
+                const value = typeof v === 'string' ? v : v.key;
+                return (
+                  <option key={value} value={value}>
+                    {renderOption(v)}
+                  </option>
+                );
+              })}
             </select>
           </div>
           <div className="flex flex-col gap-1.5">
