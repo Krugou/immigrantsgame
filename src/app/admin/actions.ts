@@ -4,7 +4,7 @@ import { getAdminDb } from '../../lib/firebase-admin';
 import os from 'os';
 
 // Config Actions
-export async function getConfigAction() {
+export const getConfigAction = async () => {
   try {
     const db = getAdminDb();
     const configDoc = await db.collection('config').doc('metadata').get();
@@ -49,9 +49,12 @@ export async function getConfigAction() {
     console.error('Error fetching config in action', err);
     throw new Error('Failed to load system config');
   }
-}
+};
 
-export async function saveConfigAction(prevState: any, payload: any) {
+export const saveConfigAction = async (
+  prevState: unknown,
+  payload: { territoryTypes?: unknown; eventTypes?: unknown; categories?: unknown },
+) => {
   try {
     const { territoryTypes, eventTypes, categories } = payload;
     const db = getAdminDb();
@@ -68,7 +71,7 @@ export async function saveConfigAction(prevState: any, payload: any) {
     console.error('Error updating config', err);
     return { success: false, error: err instanceof Error ? err.message : 'Unknown error' };
   }
-}
+};
 
 // Events Actions
 
@@ -86,25 +89,29 @@ const enrichEvent = (event: Record<string, unknown>) => {
   };
 };
 
-const removeEventInternal = async (db: FirebaseFirestore.Firestore, id: string, territoryType: string) => {
+const removeEventInternal = async (
+  db: FirebaseFirestore.Firestore,
+  id: string,
+  territoryType: string,
+) => {
   if (territoryType === 'milestone') {
     const mileRef = db.collection('events').doc('milestone_events');
     const doc = await mileRef.get();
     const data = doc.exists ? doc.data()! : { milestones: [] };
-    data.milestones = (data.milestones || []).filter((e: any) => e.id !== id);
+    data.milestones = (data.milestones || []).filter((e: { id?: string }) => e.id !== id);
     await mileRef.set(data);
   } else {
     const terrRef = db.collection('events').doc('territory_events');
     const doc = await terrRef.get();
     const data = doc.exists ? doc.data()! : {};
     if (Array.isArray(data[territoryType])) {
-      data[territoryType] = data[territoryType].filter((e: any) => e.id !== id);
+      data[territoryType] = data[territoryType].filter((e: { id?: string }) => e.id !== id);
       await terrRef.set(data);
     }
   }
 };
 
-export async function getEventsAction() {
+export const getEventsAction = async () => {
   try {
     const db = getAdminDb();
     const events: Record<string, unknown>[] = [];
@@ -136,9 +143,16 @@ export async function getEventsAction() {
     console.error('Error fetching events', err);
     throw new Error('Failed to list events');
   }
-}
+};
 
-export async function saveEventAction(prevState: any, payload: { event: Record<string, any>, territoryType: string, isEdit: boolean }) {
+export const saveEventAction = async (
+  prevState: unknown,
+  payload: {
+    event: { id?: string } & Record<string, unknown>;
+    territoryType: string;
+    isEdit: boolean;
+  },
+) => {
   try {
     const { event, territoryType, isEdit } = payload;
     if (!event || !territoryType || (isEdit && !event.id)) {
@@ -149,7 +163,7 @@ export async function saveEventAction(prevState: any, payload: { event: Record<s
     const enriched = enrichEvent(event);
 
     if (isEdit) {
-      await removeEventInternal(db, event.id, territoryType);
+      await removeEventInternal(db, event.id as string, territoryType);
     }
 
     if (territoryType === 'milestone') {
@@ -163,8 +177,12 @@ export async function saveEventAction(prevState: any, payload: { event: Record<s
       const terrRef = db.collection('events').doc('territory_events');
       const doc = await terrRef.get();
       const data = doc.exists ? doc.data()! : {};
-      if (!Array.isArray(data[territoryType])) data[territoryType] = [];
-      data[territoryType].push(enriched);
+      if (!Array.isArray(data[territoryType])) {
+        data[territoryType] = [];
+      }
+      (data[territoryType] as Array<Record<string, unknown>>).push(
+        enriched as Record<string, unknown>,
+      );
       await terrRef.set(data);
     }
 
@@ -173,9 +191,9 @@ export async function saveEventAction(prevState: any, payload: { event: Record<s
     console.error('Error saving event', err);
     return { success: false, error: err instanceof Error ? err.message : 'Unknown error' };
   }
-}
+};
 
-export async function deleteEventAction(eventId: string, territoryType: string) {
+export const deleteEventAction = async (eventId: string, territoryType: string) => {
   try {
     if (!eventId || !territoryType) {
       return { success: false, error: 'Missing event ID or territory Type' };
@@ -187,4 +205,4 @@ export async function deleteEventAction(eventId: string, territoryType: string) 
     console.error('Error deleting event', err);
     return { success: false, error: err instanceof Error ? err.message : 'Unknown error' };
   }
-}
+};

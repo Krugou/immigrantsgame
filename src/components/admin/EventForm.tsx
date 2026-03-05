@@ -40,8 +40,8 @@ const EventForm: React.FC<Props> = ({ editing, form, handleChange, save, resetFo
   const { t, i18n } = useTranslation();
   const { sysConfig } = useGame();
 
-  // alias form as any to work around strict unknown issues in generated JSX
-  const f = form as any;
+  // typed alias for form to avoid explicit `any`
+  const f = form as Partial<EventFormTemplate>;
 
   const renderOption = (entry: string | LocalizedItem) => {
     if (typeof entry === 'string') {
