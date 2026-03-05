@@ -74,7 +74,7 @@ const AdminPage = () => {
   };
 
   const save = async () => {
-    const isEdit = !!editing;
+    const isEdit = Boolean(editing);
     const body = {
       event: form,
       territoryType: form.territoryType || '',
@@ -89,7 +89,7 @@ const AdminPage = () => {
         await fetchEvents();
         resetForm();
       } else {
-        setNotification('Error: ' + res.error);
+        setNotification(`Error: ${res.error}`);
         setTimeout(() => setNotification(null), 3000);
       }
     } catch {
@@ -106,7 +106,7 @@ const AdminPage = () => {
         setTimeout(() => setNotification(null), 3000);
         await fetchEvents();
       } else {
-        setNotification('Error: ' + res.error);
+        setNotification(`Error: ${res.error}`);
         setTimeout(() => setNotification(null), 3000);
       }
     } catch {

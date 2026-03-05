@@ -57,14 +57,33 @@ for (const s of Object.values(allKeysByFile)) {
   s.forEach((k) => allLocaleKeys.add(k));
 }
 
+// helper for nested paths
+function setNested(obj: any, pathStr: string, value: string) {
+  const parts = pathStr.split('.');
+  let cur = obj;
+  for (let i = 0; i < parts.length; i++) {
+    const p = parts[i];
+    if (i === parts.length - 1) {
+      cur[p] = value;
+    } else {
+      if (typeof cur[p] !== 'object' || cur[p] === null) {
+        cur[p] = {};
+      }
+      cur = cur[p];
+    }
+  }
+}
+
 let issueFound = false;
+let addedKeys: Record<string, string[]> = {};
+
 for (const folder of folders) {
   const fileKeys = allKeysByFile[folder] || new Set();
   const missing = [...allLocaleKeys].filter((k) => !fileKeys.has(k));
   if (missing.length) {
     issueFound = true;
-    console.log(`\n[Locale Sync] Missing keys in ${folder}:`);
-    missing.forEach((k) => console.log(`  - ${k}`));
+    addedKeys[folder] = addedKeys[folder] || [];
+    missing.forEach((k) => addedKeys[folder].push(k));
   }
 }
 
@@ -88,9 +107,6 @@ for (const file of codeFiles) {
   const content = fs.readFileSync(file, 'utf-8');
   let match;
   while ((match = tRegex.exec(content)) !== null) {
-    // match[2]: t('key'), t("key"), t(`key`)
-    // match[4]: t(["key"]), t(['key'])
-    // match[6]: t({ key: "key" })
     const key = match[2] || match[4] || match[6];
     if (key && !key.includes('${')) {
       keysInCode.add(key);
@@ -101,10 +117,87 @@ for (const file of codeFiles) {
 const englishKeys = allKeysByFile['en'] || new Set();
 const missingFromLocales = [...keysInCode].filter((k) => !englishKeys.has(k));
 
+// gather union of code keys and locale keys
+const unionKeys = new Set<string>([...allLocaleKeys, ...keysInCode]);
+
+// load objects for all locales so we can modify
+const localeObjs: Record<string, any> = {};
+for (const folder of folders) {
+  const filePath = path.join(localesDir, folder, 'translation.json');
+  if (fs.existsSync(filePath)) {
+    try {
+      localeObjs[folder] = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+    } catch (e) {
+      // ignore, already reported above
+      localeObjs[folder] = {};
+    }
+  } else {
+    localeObjs[folder] = {};
+  }
+}
+
+// ensure english contains all code keys first
+if (missingFromLocales.length) {
+  issueFound = true;
+  addedKeys['en'] = addedKeys['en'] || [];
+  missingFromLocales.forEach((k) => addedKeys['en'].push(k));
+}
+
+for (const key of unionKeys) {
+  for (const folder of folders) {
+    const fileKeys = allKeysByFile[folder] || new Set();
+    if (!fileKeys.has(key)) {
+      issueFound = true;
+      addedKeys[folder] = addedKeys[folder] || [];
+      addedKeys[folder].push(key);
+    }
+  }
+}
+
+// actually add keys with placeholder values
+for (const folder of folders) {
+  const obj = localeObjs[folder];
+  const fileKeys = allKeysByFile[folder] || new Set();
+  const toAdd = addedKeys[folder] || [];
+  if (toAdd.length) {
+    toAdd.forEach((k) => {
+      // determine default value
+      let val = '';
+      if (folder === 'en') {
+        // english uses the key itself (or if missing from english but present in other locale, use that value?)
+        val = k;
+      } else {
+        // other languages: try to mirror english if available
+        const engObj = localeObjs['en'] || {};
+        // get english value by delving into engObj
+        const parts = k.split('.');
+        let cur = engObj;
+        for (const p of parts) {
+          if (cur && typeof cur === 'object' && p in cur) {
+            cur = cur[p];
+          } else {
+            cur = undefined;
+            break;
+          }
+        }
+        if (typeof cur === 'string') {
+          val = cur;
+        } else {
+          val = '';
+        }
+      }
+      setNested(obj, k, val);
+    });
+    // write file back
+    const filePath = path.join(localesDir, folder, 'translation.json');
+    fs.writeFileSync(filePath, JSON.stringify(obj, null, 2) + '\n');
+    console.log(`\n[Auto-Add] Added ${toAdd.length} missing keys to ${folder}/translation.json`);
+  }
+}
+
 console.log(`\nFound ${keysInCode.size} unique translation keys in code.`);
 
 if (missingFromLocales.length) {
-  issueFound = true;
   console.log('\n[Code Sync] Keys found in code but missing from locales:');
   missingFromLocales.sort().forEach((k) => console.log(`  - ${k}`));
 }
@@ -113,5 +206,7 @@ if (!issueFound) {
   console.log('\nSuccess: All translation keys are synchronized.');
   process.exit(0);
 } else {
+  console.log('\nOne or more translation files were updated automatically.');
+  console.log('Please review and supply appropriate translations before committing.');
   process.exit(1);
 }

@@ -3,7 +3,7 @@
 import { useReportWebVitals } from 'next/web-vitals';
 import { gaEvent } from '../lib/analytics';
 
-export function WebVitals() {
+export const WebVitals = () => {
   useReportWebVitals((metric) => {
     // Send to Google Analytics if configured
     if (process.env.NEXT_PUBLIC_GA_ID) {
@@ -23,4 +23,4 @@ export function WebVitals() {
   });
 
   return null;
-}
+};

@@ -174,5 +174,10 @@
     "description": "Description",
     "simulateHour": "Simulate 1 Hour",
     "simulated": "Simulated {{hours}} hour(s) of ticks"
+  },
+  "auto": {
+    "test": {
+      "key": "auto.test.key"
+    }
   }
 }

@@ -174,5 +174,10 @@
     "description": "Kuvaus",
     "simulateHour": "Simuloi 1 tunti",
     "simulated": "Simuloitu {{hours}} tunti(a)"
+  },
+  "auto": {
+    "test": {
+      "key": "auto.test.key"
+    }
   }
 }

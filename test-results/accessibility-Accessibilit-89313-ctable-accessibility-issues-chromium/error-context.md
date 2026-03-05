@@ -2,162 +2,173 @@
 
 ```yaml
 - generic [active] [ref=e1]:
-  - alert [ref=e2]
-  - generic [ref=e3]:
-    - img "Star field; population 7, 1 territories"
-    - heading "The Immigrants" [level=1] [ref=e4]
-    - banner [ref=e5]:
-      - generic [ref=e6]:
-        - img [ref=e8]:
-          - generic [ref=e10]: The Immigrants
-        - paragraph [ref=e12]: From Caves to Space Stations
-      - generic [ref=e13]:
-        - button "Sign In / Sign Up" [ref=e14] [cursor=pointer]
-        - combobox "Select Language" [ref=e15]:
-          - option "EN" [selected]
-          - option "FI"
-        - button "Unmute sounds" [ref=e16] [cursor=pointer]:
-          - img [ref=e17]
-        - button "Toggle high contrast mode" [ref=e21] [cursor=pointer]: HC
-    - generic [ref=e22]:
-      - generic [ref=e23]:
-        - generic [ref=e24]:
-          - generic [ref=e25]:
-            - img [ref=e26]
-            - text: Total
-          - 'status "Population: 7" [ref=e32]':
-            - generic [ref=e33]:
-              - generic [ref=e34]: "0"
-              - generic [ref=e35]: "1"
-              - generic [ref=e36]: "2"
-              - generic [ref=e37]: "3"
-              - generic [ref=e38]: "4"
-              - generic [ref=e39]: "5"
-              - generic [ref=e40]: "6"
-              - generic [ref=e41]: "7"
-              - generic [ref=e42]: "8"
-              - generic [ref=e43]: "9"
-        - generic [ref=e44]:
-          - generic [ref=e45]: Total Immigrants Assisted
-          - generic [ref=e46]: "109"
-      - generic [ref=e47]:
-        - button "Guide Immigrants" [ref=e49] [cursor=pointer]:
-          - img [ref=e50]
-          - text: Guide Immigrants
-        - generic [ref=e53]:
-          - generic [ref=e54]: Capacity usage
-          - generic [ref=e55]: 1%
-        - generic [ref=e59]:
-          - generic [ref=e60]: "Next: name"
-          - generic [ref=e61]: 1%
-    - generic [ref=e64]:
-      - generic [ref=e65]:
-        - heading "Territories (1)" [level=2] [ref=e67]:
-          - text: Territories
-          - generic [ref=e68]: (1)
-        - 'article "Territory: Rural Village" [ref=e70]':
-          - generic [ref=e72]:
-            - img [ref=e74]
-            - heading "Rural Village" [level=3] [ref=e77]
-          - paragraph [ref=e78]: territory.village.description
-          - generic [ref=e80]:
-            - generic [ref=e81]: Population
-            - generic [ref=e82]: 7 / 1,200
-      - generic [ref=e85]:
-        - generic [ref=e86]:
-          - generic [ref=e87]:
-            - img [ref=e88]
-            - heading "State Policies" [level=3] [ref=e90]
-          - generic [ref=e91]:
-            - generic [ref=e92] [cursor=pointer]:
-              - generic [ref=e93]:
-                - generic [ref=e94]:
-                  - img [ref=e95]
-                  - text: Open Borders
-                - generic [ref=e97]: INACTIVE
-              - paragraph [ref=e98]: Immigration events are more likely to succeed (+20%).
-              - generic [ref=e100]: Immigration +20%
-            - generic [ref=e101] [cursor=pointer]:
-              - generic [ref=e102]:
-                - generic [ref=e103]:
-                  - img [ref=e104]
-                  - text: Closed Borders
-                - generic [ref=e106]: INACTIVE
-              - paragraph [ref=e107]: Immigration events are reduced (-50%).
-              - generic [ref=e109]: Immigration -50%
-        - generic [ref=e110]:
-          - heading "Event Log" [level=2] [ref=e111]
-          - log "Game event log" [ref=e112]:
-            - generic [ref=e113]:
-              - generic [ref=e114]:
-                - generic [ref=e115]:
-                  - img [ref=e116]
-                  - generic [ref=e119]: New Families Arrive
-                - generic [ref=e120]: 5:55:36 PM
-              - paragraph [ref=e121]: Word spreads about your welcoming community, and new immigrant families arrive.
-              - generic [ref=e122]: +3 Population
-            - generic [ref=e123]:
-              - generic [ref=e124]:
-                - generic [ref=e125]:
-                  - img [ref=e126]
-                  - generic [ref=e128]: Underground Pioneer
-                - generic [ref=e129]: 5:55:36 PM
-              - paragraph [ref=e130]: First community to successfully establish underground settlements.
-              - generic [ref=e131]: +20 Population
-            - generic [ref=e132]:
-              - generic [ref=e133]:
-                - generic [ref=e134]:
-                  - img [ref=e135]
-                  - generic [ref=e137]: Underground Pioneer
-                - generic [ref=e138]: 5:55:31 PM
-              - paragraph [ref=e139]: First community to successfully establish underground settlements.
-              - generic [ref=e140]: +20 Population
-            - generic [ref=e141]:
-              - generic [ref=e142]:
-                - generic [ref=e143]:
-                  - img [ref=e144]
-                  - generic [ref=e147]: Crop Failure
-                - generic [ref=e148]: 5:55:26 PM
-              - paragraph [ref=e149]: A disease destroys the crops, forcing families to abandon their farms.
-              - generic [ref=e150]: "-2 Population"
-            - generic [ref=e151]:
-              - generic [ref=e152]:
-                - generic [ref=e153]:
-                  - img [ref=e154]
-                  - generic [ref=e156]: Underground Pioneer
-                - generic [ref=e157]: 5:55:26 PM
-              - paragraph [ref=e158]: First community to successfully establish underground settlements.
-              - generic [ref=e159]: +20 Population
-            - generic [ref=e160]:
-              - generic [ref=e161]:
-                - generic [ref=e162]:
-                  - img [ref=e163]
-                  - generic [ref=e166]: New Families Arrive
-                - generic [ref=e167]: 5:55:21 PM
-              - paragraph [ref=e168]: Word spreads about your welcoming community, and new immigrant families arrive.
-              - generic [ref=e169]: +3 Population
-            - generic [ref=e170]:
-              - generic [ref=e171]:
-                - generic [ref=e172]:
-                  - img [ref=e173]
-                  - generic [ref=e175]: Underground Pioneer
-                - generic [ref=e176]: 5:55:21 PM
-              - paragraph [ref=e177]: First community to successfully establish underground settlements.
-              - generic [ref=e178]: +20 Population
-            - generic [ref=e179]:
-              - generic [ref=e180]:
-                - generic [ref=e181]:
-                  - img [ref=e182]
-                  - generic [ref=e185]: Good Harvest
-                - generic [ref=e186]: 5:55:16 PM
-              - paragraph [ref=e187]: A successful harvest brings prosperity, attracting families seeking agricultural work.
-              - generic [ref=e188]: +2 Population
-            - generic [ref=e189]:
-              - generic [ref=e190]:
-                - generic [ref=e191]:
-                  - img [ref=e192]
-                  - generic [ref=e194]: Underground Pioneer
-                - generic [ref=e195]: 5:55:16 PM
-              - paragraph [ref=e196]: First community to successfully establish underground settlements.
-              - generic [ref=e197]: +20 Population
+    - alert [ref=e2]
+    - generic [ref=e3]:
+        - img "Star field; population 11, 1 territories"
+        - heading "The Immigrants" [level=1] [ref=e4]
+        - banner [ref=e5]:
+            - generic [ref=e6]:
+                - img [ref=e8]:
+                    - generic [ref=e10]: The Immigrants
+                - paragraph [ref=e12]: From Caves to Space Stations
+            - generic [ref=e13]:
+                - button "Sign In / Sign Up" [ref=e14] [cursor=pointer]
+                - combobox "Select Language" [ref=e15]:
+                    - option "EN" [selected]
+                    - option "FI"
+                - button "Unmute sounds" [ref=e16] [cursor=pointer]:
+                    - img [ref=e17]
+                - button "Toggle high contrast mode" [ref=e21] [cursor=pointer]: HC
+        - generic [ref=e22]:
+            - generic [ref=e23]:
+                - generic [ref=e24]:
+                    - generic [ref=e25]:
+                        - img [ref=e26]
+                        - text: Total
+                    - 'status "Population: 11" [ref=e32]':
+                        - generic [ref=e33]:
+                            - generic [ref=e34]: '0'
+                            - generic [ref=e35]: '1'
+                            - generic [ref=e36]: '2'
+                            - generic [ref=e37]: '3'
+                            - generic [ref=e38]: '4'
+                            - generic [ref=e39]: '5'
+                            - generic [ref=e40]: '6'
+                            - generic [ref=e41]: '7'
+                            - generic [ref=e42]: '8'
+                            - generic [ref=e43]: '9'
+                        - generic [ref=e44]:
+                            - generic [ref=e45]: '0'
+                            - generic [ref=e46]: '1'
+                            - generic [ref=e47]: '2'
+                            - generic [ref=e48]: '3'
+                            - generic [ref=e49]: '4'
+                            - generic [ref=e50]: '5'
+                            - generic [ref=e51]: '6'
+                            - generic [ref=e52]: '7'
+                            - generic [ref=e53]: '8'
+                            - generic [ref=e54]: '9'
+                - generic [ref=e55]:
+                    - generic [ref=e56]: Total Immigrants Assisted
+                    - generic [ref=e57]: '111'
+            - generic [ref=e58]:
+                - button "Guide Immigrants" [ref=e60] [cursor=pointer]:
+                    - img [ref=e61]
+                    - text: Guide Immigrants
+                - generic [ref=e64]:
+                    - generic [ref=e65]: Capacity usage
+                    - generic [ref=e66]: 1%
+                - generic [ref=e70]:
+                    - generic [ref=e71]: 'Next: name'
+                    - generic [ref=e72]: 2%
+        - generic [ref=e75]:
+            - generic [ref=e76]:
+                - heading "Territories (1)" [level=2] [ref=e78]:
+                    - text: Territories
+                    - generic [ref=e79]: (1)
+                - 'article "Territory: Rural Village" [ref=e81]':
+                    - generic [ref=e83]:
+                        - img [ref=e85]
+                        - heading "Rural Village" [level=3] [ref=e88]
+                    - paragraph [ref=e89]: territory.village.description
+                    - generic [ref=e91]:
+                        - generic [ref=e92]: Population
+                        - generic [ref=e93]: 11 / 1,200
+            - generic [ref=e96]:
+                - generic [ref=e97]:
+                    - generic [ref=e98]:
+                        - img [ref=e99]
+                        - heading "State Policies" [level=3] [ref=e101]
+                    - generic [ref=e102]:
+                        - generic [ref=e103] [cursor=pointer]:
+                            - generic [ref=e104]:
+                                - generic [ref=e105]:
+                                    - img [ref=e106]
+                                    - text: Open Borders
+                                - generic [ref=e108]: INACTIVE
+                            - paragraph [ref=e109]: Immigration events are more likely to succeed (+20%).
+                            - generic [ref=e111]: Immigration +20%
+                        - generic [ref=e112] [cursor=pointer]:
+                            - generic [ref=e113]:
+                                - generic [ref=e114]:
+                                    - img [ref=e115]
+                                    - text: Closed Borders
+                                - generic [ref=e117]: INACTIVE
+                            - paragraph [ref=e118]: Immigration events are reduced (-50%).
+                            - generic [ref=e120]: Immigration -50%
+                - generic [ref=e121]:
+                    - heading "Event Log" [level=2] [ref=e122]
+                    - log "Game event log" [ref=e123]:
+                        - generic [ref=e124]:
+                            - generic [ref=e125]:
+                                - generic [ref=e126]:
+                                    - img [ref=e127]
+                                    - generic [ref=e130]: New Families Arrive
+                                - generic [ref=e131]: 7:14:56 PM
+                            - paragraph [ref=e132]: Word spreads about your welcoming community, and new immigrant families arrive.
+                            - generic [ref=e133]: +3 Population
+                        - generic [ref=e134]:
+                            - generic [ref=e135]:
+                                - generic [ref=e136]:
+                                    - img [ref=e137]
+                                    - generic [ref=e139]: Underground Pioneer
+                                - generic [ref=e140]: 7:14:56 PM
+                            - paragraph [ref=e141]: First community to successfully establish underground settlements.
+                            - generic [ref=e142]: +20 Population
+                        - generic [ref=e143]:
+                            - generic [ref=e144]:
+                                - generic [ref=e145]:
+                                    - img [ref=e146]
+                                    - generic [ref=e149]: Good Harvest
+                                - generic [ref=e150]: 7:14:51 PM
+                            - paragraph [ref=e151]: A successful harvest brings prosperity, attracting families seeking agricultural work.
+                            - generic [ref=e152]: +2 Population
+                        - generic [ref=e153]:
+                            - generic [ref=e154]:
+                                - generic [ref=e155]:
+                                    - img [ref=e156]
+                                    - generic [ref=e158]: Underground Pioneer
+                                - generic [ref=e159]: 7:14:51 PM
+                            - paragraph [ref=e160]: First community to successfully establish underground settlements.
+                            - generic [ref=e161]: +20 Population
+                        - generic [ref=e162]:
+                            - generic [ref=e163]:
+                                - generic [ref=e164]:
+                                    - img [ref=e165]
+                                    - generic [ref=e168]: Good Harvest
+                                - generic [ref=e169]: 7:14:46 PM
+                            - paragraph [ref=e170]: A successful harvest brings prosperity, attracting families seeking agricultural work.
+                            - generic [ref=e171]: +2 Population
+                        - generic [ref=e172]:
+                            - generic [ref=e173]:
+                                - generic [ref=e174]:
+                                    - img [ref=e175]
+                                    - generic [ref=e177]: Underground Pioneer
+                                - generic [ref=e178]: 7:14:46 PM
+                            - paragraph [ref=e179]: First community to successfully establish underground settlements.
+                            - generic [ref=e180]: +20 Population
+                        - generic [ref=e181]:
+                            - generic [ref=e182]:
+                                - generic [ref=e183]:
+                                    - img [ref=e184]
+                                    - generic [ref=e186]: Underground Pioneer
+                                - generic [ref=e187]: 7:14:41 PM
+                            - paragraph [ref=e188]: First community to successfully establish underground settlements.
+                            - generic [ref=e189]: +20 Population
+                        - generic [ref=e190]:
+                            - generic [ref=e191]:
+                                - generic [ref=e192]:
+                                    - img [ref=e193]
+                                    - generic [ref=e196]: New Families Arrive
+                                - generic [ref=e197]: 7:14:36 PM
+                            - paragraph [ref=e198]: Word spreads about your welcoming community, and new immigrant families arrive.
+                            - generic [ref=e199]: +3 Population
+                        - generic [ref=e200]:
+                            - generic [ref=e201]:
+                                - generic [ref=e202]:
+                                    - img [ref=e203]
+                                    - generic [ref=e205]: Underground Pioneer
+                                - generic [ref=e206]: 7:14:36 PM
+                            - paragraph [ref=e207]: First community to successfully establish underground settlements.
+                            - generic [ref=e208]: +20 Population
 ```

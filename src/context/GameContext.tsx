@@ -250,7 +250,7 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const territory = event.targetTerritoryId
       ? newState.territories.find((t) => t.id === event.targetTerritoryId) || undefined
       : undefined;
-    let modifiedEvent = ModifierService.applyModifiers(newState, event, territory);
+    const modifiedEvent = ModifierService.applyModifiers(newState, event, territory);
 
     newState.eventHistory = [modifiedEvent, ...newState.eventHistory].slice(0, 50); // Keep last 50
 
