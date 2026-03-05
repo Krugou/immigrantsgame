@@ -1,20 +1,26 @@
-import { GameEvent, Territory, TerritoryType } from '../models/types';
+import { GameEvent, GameState, Territory, TerritoryType, EventType } from '../models/types';
+import { TechService } from './TechService';
+import { PolicyService } from './PolicyService';
 
 export class ModifierService {
   /**
-   * Apply a chain of multipliers to an event's population change.
-   * The order of operations is intentional: base -> territory -> policy -> tech
+   * Apply a fully composable chain of multipliers to an event's population change.
+   * Base Change × Territory Multiplier × Tech Bonus × Policy Multiplier
    */
-  static applyModifiers(event: GameEvent, territory?: Territory): GameEvent {
+  static applyModifiers(state: GameState, event: GameEvent, territory?: Territory): GameEvent {
     let change = event.populationChange;
 
-    // territory-specific multiplier (e.g. space stations get bonus)
+    // 1. Territory multiplier
     change *= ModifierService.territoryMultiplier(territory);
 
-    // policy multipliers are applied higher in the pipeline (see GameContext.processEvent)
-    // this service only handles territory/tech/etc.
+    // 2. Tech multiplier
+    change *= TechService.populationMultiplier(state);
 
-    // Tech bonuses or other global modifiers are applied higher in GameContext
+    // 3. Policy multiplier (e.g., immigration)
+    if (event.type === EventType.immigration) {
+      change *= PolicyService.immigrationMultiplier(state);
+    }
+
     return { ...event, populationChange: change };
   }
 

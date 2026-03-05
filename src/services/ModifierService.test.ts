@@ -1,7 +1,8 @@
 import { describe, it, expect, vi } from 'vitest';
 import { ModifierService } from './ModifierService';
-import { EventType, TerritoryType, GameEvent, Territory, EventCategory } from '../models/types';
+import { EventType, TerritoryType, GameEvent, Territory, EventCategory, GameState } from '../models/types';
 import { PolicyService } from './PolicyService';
+import { TechService } from './TechService';
 
 describe('ModifierService', () => {
   it('returns correct territory multiplier', () => {
@@ -30,38 +31,13 @@ describe('ModifierService', () => {
     expect(ModifierService.territoryMultiplier(desertTerr)).toBe(0.8);
   });
 
-  it('does not touch populationChange for policies (handled externally)', () => {
+  it('combines territory, tech, and policy multipliers into a fully composable pipeline', () => {
     const evt: GameEvent = {
       id: 'e1',
       title: '',
       description: '',
       type: EventType.immigration,
-      populationChange: 10,
-      timestamp: Date.now(),
-      category: EventCategory.opportunity,
-    };
-    const terr: Territory = {
-      id: 't',
-      name: '',
-      description: '',
-      type: TerritoryType.suburbs,
-      population: 0,
-      capacity: 0,
-      isUnlocked: true,
-    };
-
-    // even if policy service is invoked elsewhere, the modifier service itself should not mutate
-    const modified = ModifierService.applyModifiers(evt, terr);
-    expect(modified.populationChange).toBe(10);
-  });
-
-  it('combined with policy yields full pipeline', () => {
-    const evt: GameEvent = {
-      id: 'e2',
-      title: '',
-      description: '',
-      type: EventType.immigration,
-      populationChange: 10,
+      populationChange: 10, // base change 10
       timestamp: Date.now(),
       category: EventCategory.opportunity,
     };
@@ -69,26 +45,54 @@ describe('ModifierService', () => {
       id: 's',
       name: '',
       description: '',
-      type: TerritoryType.spaceStation,
+      type: TerritoryType.spaceStation, // territory multiplier 1.5
       population: 0,
       capacity: 0,
       isUnlocked: true,
     };
+    const state = {} as GameState;
 
-    // stub policy multiplier
+    // stub tech multiplier to 2.0
+    vi.spyOn(TechService, 'populationMultiplier').mockReturnValue(2.0);
+    // stub policy multiplier to 1.2
     vi.spyOn(PolicyService, 'immigrationMultiplier').mockReturnValue(1.2);
 
-    const afterTerr = ModifierService.applyModifiers(evt, terr);
-    // apply policy manually
-    const afterPolicy = {
-      ...afterTerr,
-      populationChange:
-        afterTerr.populationChange *
-        PolicyService.immigrationMultiplier({
-          policies: [],
-        } as unknown as import('../models/types').GameState),
+    const modified = ModifierService.applyModifiers(state, evt, terr);
+
+    // 10 (base) * 1.5 (territory) * 2.0 (tech) * 1.2 (policy) = 36
+    expect(modified.populationChange).toBeCloseTo(36);
+
+    vi.restoreAllMocks();
+  });
+
+  it('does not apply immigration policy to non-immigration events', () => {
+    const evt: GameEvent = {
+      id: 'e2',
+      title: '',
+      description: '',
+      type: EventType.disaster, // Not immigration
+      populationChange: -10,
+      timestamp: Date.now(),
+      category: EventCategory.disaster,
     };
-    expect(afterPolicy.populationChange).toBeCloseTo(10 * 1.5 * 1.2);
+    const terr: Territory = {
+      id: 't',
+      name: '',
+      description: '',
+      type: TerritoryType.rural, // territory multiplier 1.0
+      population: 0,
+      capacity: 0,
+      isUnlocked: true,
+    };
+    const state = {} as GameState;
+
+    vi.spyOn(TechService, 'populationMultiplier').mockReturnValue(1.0);
+    vi.spyOn(PolicyService, 'immigrationMultiplier').mockReturnValue(1.5); // Should be ignored
+
+    const modified = ModifierService.applyModifiers(state, evt, terr);
+
+    // -10 (base) * 1.0 (territory) * 1.0 (tech) = -10
+    expect(modified.populationChange).toBeCloseTo(-10);
 
     vi.restoreAllMocks();
   });

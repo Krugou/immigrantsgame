@@ -1,8 +1,8 @@
 /* eslint-disable */
 import React, { useState } from 'react';
 import { useGame } from '../../context/GameContext';
-import { isBackendAvailable } from '../../services/api';
 import { gaEvent } from '../../lib/analytics';
+import { saveConfigAction } from '../../app/admin/actions';
 
 const ConfigEditor: React.FC = () => {
   const { sysConfig } = useGame();
@@ -10,26 +10,18 @@ const ConfigEditor: React.FC = () => {
   const [notification, setNotification] = useState<string | null>(null);
 
   const handleUpdate = async () => {
-    if (isBackendAvailable()) {
-      try {
-        const res = await fetch('/api/admin/config', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(localConfig),
-        });
-        if (res.ok) {
-          gaEvent('admin_config_update', {});
-          setNotification('Configuration updated. Please refresh the page to apply changes.');
-          setTimeout(() => setNotification(null), 5000);
-        }
-      } catch {
-        setNotification('Failed to update configuration.');
+    try {
+      const res = await saveConfigAction(null, localConfig);
+      if (res.success) {
+        gaEvent('admin_config_update', {});
+        setNotification('Configuration updated. Please refresh the page to apply changes.');
+        setTimeout(() => setNotification(null), 5000);
+      } else {
+        setNotification('Failed to update configuration: ' + res.error);
         setTimeout(() => setNotification(null), 3000);
       }
-    } else {
-      // TODO: Save config directly to Firebase (implement as needed)
-      gaEvent('admin_config_update', { firebase: true });
-      setNotification('Configuration updated in Firebase (mock).');
+    } catch {
+      setNotification('Failed to update configuration.');
       setTimeout(() => setNotification(null), 3000);
     }
   };

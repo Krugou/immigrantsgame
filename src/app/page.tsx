@@ -10,6 +10,7 @@ import Link from 'next/link';
 import AuthModal from '../components/AuthModal';
 import TerritoryCard from '../components/TerritoryCard';
 import EventLog from '../components/EventLog';
+import PolicyManager from '../components/PolicyManager';
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
 import LoadingScreen from '../components/common/LoadingScreen';
@@ -307,10 +308,14 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Right Column: Event Log */}
-        <div className="flex flex-col h-full">
-          <h2 className="text-2xl font-bold text-white mb-6">{t('ui.eventLog')}</h2>
-          <EventLog events={gameState.eventHistory} />
+        {/* Right Column: Policies & Event Log */}
+        <div className="flex flex-col gap-6 h-full">
+          <PolicyManager />
+
+          <div className="flex flex-col h-full">
+            <h2 className="text-xl font-bold text-white mb-4">{t('ui.eventLog')}</h2>
+            <EventLog events={gameState.eventHistory} />
+          </div>
         </div>
       </div>
 

@@ -246,31 +246,11 @@ export const GameProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const processEvent = useCallback((state: GameState, event: GameEvent): GameState => {
     const newState = { ...state };
-    // run the full modifier pipeline (territory, tech, etc.)
+    // run the full modifier pipeline (territory, tech, policy)
     const territory = event.targetTerritoryId
       ? newState.territories.find((t) => t.id === event.targetTerritoryId) || undefined
       : undefined;
-    let modifiedEvent = ModifierService.applyModifiers(event, territory);
-
-    // apply technology bonuses (global multipliers)
-    const techMult = TechService.populationMultiplier(state);
-    if (techMult !== 1) {
-      modifiedEvent = {
-        ...modifiedEvent,
-        populationChange: modifiedEvent.populationChange * techMult,
-      };
-    }
-
-    // apply policy modifiers (immigration only for now)
-    if (modifiedEvent.type === EventType.immigration) {
-      const pMult = PolicyService.immigrationMultiplier(state);
-      if (pMult !== 1) {
-        modifiedEvent = {
-          ...modifiedEvent,
-          populationChange: modifiedEvent.populationChange * pMult,
-        };
-      }
-    }
+    let modifiedEvent = ModifierService.applyModifiers(newState, event, territory);
 
     newState.eventHistory = [modifiedEvent, ...newState.eventHistory].slice(0, 50); // Keep last 50
 

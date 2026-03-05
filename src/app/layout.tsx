@@ -9,6 +9,7 @@ import { GameProvider } from '../context/GameContext';
 import PWARegister from '../components/PWARegister';
 import DisableConsole from '../components/DisableConsole';
 import Analytics from '../components/Analytics';
+import { WebVitals } from '../components/WebVitals';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -58,6 +59,7 @@ gtag('config', '${gaId}');
           <GameProvider>
             <DisableConsole />
             <Analytics />
+            <WebVitals />
             {children}
             <PWARegister />
           </GameProvider>
